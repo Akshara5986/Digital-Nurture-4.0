@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Community Event Portal</title>
+    <!-- Google Fonts Import -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Roboto:400,500&display=swap" rel="stylesheet">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Internal style for body background */
+        body {
+            background: #f3f9ff url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+        <a href="help.html" target="_blank">Help</a>
+    </nav>
+
+    <!-- Main -->
+    <div id="welcomeBanner">
+        Welcome to the Local Community Event Portal!
+        <span class="highlight">Check out our special offers!</span>
+    </div>
+
+    <section id="events">
+        <h2 style="color: #e53935;">Community Events</h2> <!-- Inline style: heading red -->
+        <table>
+            <tbody>
+                <tr>
+                    <td><img src="1.jpg" alt="Event 1" title="Event 1"></td>
+                    <td><img src="3.jpg" alt="Event 3" title="Event 3"></td>
+                    <td><img src="4.jpg" alt="Event 4" title="Event 4"></td>
+                    <td><img src="5.jpg" alt="Event 5" title="Event 5"></td>
+                    <td><img src="6.jpg" alt="Event 6" title="Event 6"></td>
+                </tr>
+                <tr>
+                    <td><p>Yoga Day</p></td>
+                    <td><p>Art Exhibition</p></td>
+                    <td><p>Book Fair</p></td>
+                    <td><p>Food Fair</p></td>
+                    <td><p>Music Festival</p></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="registration">
+        <h2>Event Registration</h2>
+        <form id="eventForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required autofocus><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required><br>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required><br>
+
+            <label for="eventType">Event Type:</label>
+            <select id="eventType" name="eventType" required>
+                <option value="Workshop">Workshop</option>
+                <option value="Seminar">Seminar</option>
+                <option value="Yoga Day">Yoga Day</option>
+                <option value="Music Festival">Music Festival</option>
+                <option value="Food Fair">Food Fair</option>
+                <option value="Conference">Conference</option>
+
+            </select><br>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" placeholder="Your Message"></textarea><br>
+
+            <input type="submit" value="Register">
+            <output id="confirmationMessage"></output>
+        </form>
+    </section>
+
+    <section id="feedback">
+        <h2>Event Feedback</h2>
+        <textarea id="feedbackTextarea" oninput="countCharacters()"></textarea>
+        <p id="charCount">Characters: 0</p>
+    </section>
+
+    <section id="videoInvite">
+        <h2>Watch Our Promo Video</h2>
+        <video id="promoVideo" controls oncanplay="videoReady()">
+            <source src="promo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+
+    <button id="findEvents" class="cta-button">Find Nearby Events</button>
+
+    <!-- Example of multi-column news section -->
+    <section class="news-article">
+        <h3>Community Bulletin</h3>
+        <p>
+            Welcome to our community portal! Stay updated with the latest events, workshops, and festivals happening around you. 
+            From art exhibitions to music festivals, there’s something for everyone. Don’t forget to register. for your favorite events and share your feedback!
+            <br><br>
+            Our portal is designed to be responsive and user-friendly, ensuring a seamless experience on any device. Explore, participate, and celebrate with your local community!
+        </p>
+    </section>
+
+    <script>
+        // Event Registration Form Submission
+        document.getElementById('eventForm').onsubmit = function(event) {
+            event.preventDefault();
+            document.getElementById('confirmationMessage').innerText = "Thank you for registering!";
+        };
+
+        // Character Count Function
+        function countCharacters() {
+            const textarea = document.getElementById('feedbackTextarea');
+            document.getElementById('charCount').innerText = "Characters: " + textarea.value.length;
+        }
+
+        // Video Ready Function
+        function videoReady() {
+            alert("Video ready to play");
+        }
+
+        // Geolocation Functionality
+        document.getElementById('findEvents').onclick = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        };
+
+        function showPosition(position) {
+            alert("Latitude: " + position.coords.latitude + 
+                  "\nLongitude: " + position.coords.longitude);
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User  denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+    </script>
+
+<script src="main.js"></script>
+
+</body>
+</html>
